@@ -5,15 +5,12 @@ from src.config.settings import RAW_DATA
 
 def fetch_data(symbol="AAPL", start="2020-01-01"):
     df = yf.download(symbol, start=start)
-    df.reset_index(inplace=True)
-    
-    # Flatten multi-level columns from yfinance
+
     if isinstance(df.columns, pd.MultiIndex):
-        df.columns = [col[0] for col in df.columns]
+        df.columns = df.columns.get_level_values(0)
 
-    pl_df = pl.from_pandas(df)
-    file_path = RAW_DATA / f"{symbol}.parquet"
-    pl_df.write_parquet(file_path)
+    pl_df = pl.from_pandas(df.reset_index())
+    pl_df.write_parquet(RAW_DATA / f"{symbol}.parquet")
 
-    print(f"Saved {symbol} data to {file_path}")
+    print(f"Saved {symbol} data to {RAW_DATA / f'{symbol}.parquet'}")
     return pl_df

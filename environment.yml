@@ -17,3 +17,4 @@ dependencies:
       - yfinance
       - python-dotenv
       - pyside6
+      - kaleido

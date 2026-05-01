@@ -11,7 +11,8 @@ def run_strategy(close_prices):
         close_prices,
         entries,
         exits,
-        init_cash=10000
+        init_cash=10000,
+        freq='D'  # Daily frequency
     )
 
     return portfolio
