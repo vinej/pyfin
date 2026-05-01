@@ -1,0 +1,59 @@
+{
+  "version": "1.0",
+
+  "universe": {
+    "tickers": ["AAPL", "GIB"],
+    "data_source": "yfinance",
+    "frequency": "1d",
+    "date_range": {
+      "start": "2023-01-01",
+      "end": "2024-01-01"
+    }
+  },
+
+  "cash": {
+    "initial_capital": 100000,
+    "cash_buffer": 0.02,
+    "currency": "USD"
+  },
+
+  "allocation": {
+    "type": "target_weights",
+    "weights": {
+      "AAPL": 0.3,
+      "MSFT": 0.3,
+      "GOOG": 0.2,
+      "SPY": 0.2
+    },
+    "rebalance": {
+      "enabled": true,
+      "frequency": "monthly",
+      "threshold": 0.05
+    }
+  },
+
+  "strategies": [
+    {
+      "name": "sma_cross",
+      "type": "signal",
+      "applies_to": ["AAPL"],
+      "params": {
+        "fast": 20,
+        "slow": 50
+      },
+      "position_sizing": {
+        "type": "target_weight"
+      }
+    },
+    {
+      "name": "buy_hold",
+      "type": "allocation",
+      "applies_to": ["GIB"]
+    }
+  ],
+
+  "execution": {
+    "fees": 0.001,
+    "slippage": 0.0005
+  }
+}
