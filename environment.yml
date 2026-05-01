@@ -1,0 +1,19 @@
+name: quant-lab
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - numpy
+  - pandas
+  - polars
+  - pyarrow
+  - matplotlib
+  - plotly
+  - pytorch
+  - scikit-learn
+  - pip:
+      - vectorbt
+      - yfinance
+      - python-dotenv
+      - pyside6
