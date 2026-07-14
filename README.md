@@ -69,7 +69,25 @@ This will install all required dependencies including:
 - UI: PySide6
 - Utilities: python-dotenv
 
-### 3. Verify Installation
+### 3. Fetch Market Data
+
+The historical price data is **not included** in the repository — Yahoo Finance's terms don't allow redistributing it, so `data/raw/` is git-ignored (the app creates it on first run via `src/config/settings.py`). Download it yourself with the ingestion helper; each symbol is saved as `data/raw/<SYMBOL>.parquet`.
+
+Fetch a single symbol:
+
+```bash
+python -c "from src.data.ingest import fetch_data; fetch_data('AAPL')"
+```
+
+Fetch the default set used by the examples (AAPL, SPY, QQQ, IWM, GIB):
+
+```bash
+python -c "from src.data.ingest import fetch_data; [fetch_data(s) for s in ['AAPL','SPY','QQQ','IWM','GIB']]"
+```
+
+`fetch_data(symbol, start='2020-01-01')` takes an optional start date — change it to pull more or less history. Running `python -m src.main` (below) also fetches AAPL automatically before backtesting.
+
+### 4. Verify Installation
 
 ```bash
 python -m src.main
@@ -191,7 +209,7 @@ This is automatically handled in the current version. If encountered, ensure you
 
 ## License
 
-[Add your license here]
+MIT — see [LICENSE](LICENSE).
 
 ## Contact
 
